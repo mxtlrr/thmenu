@@ -7,7 +7,7 @@ BIN_DIR := bin
 
 LINKERS := -lpsapi -lkernel32
 
-SRCS := $(wildcard $(SRC_DIR)/*.cpp)
+SRCS := $(wildcard $(SRC_DIR)/*.cpp) $(wildcard $(SRC_DIR)/*/*.cpp)
 OBJS := $(patsubst $(SRC_DIR)/%.cpp,$(OBJ_DIR)/%.o,$(SRCS))
 
 $(BIN_DIR)/thmenu: $(OBJS)
@@ -20,7 +20,7 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp | $(OBJ_DIR)
 	@$(CXX) $(CXXFLAGS) -c $< -o $@
 
 $(OBJ_DIR):
-	@mkdir -p $(OBJ_DIR)
+	@mkdir -p obj/ obj/hacks
 
 $(BIN_DIR):
 	@mkdir -p $(BIN_DIR)
@@ -29,7 +29,7 @@ $(BIN_DIR):
 .PHONY: clean
 clean:
 	@echo "Cleaning up..."
-	@rm -f $(OBJ_DIR)/*.o $(BIN_DIR)/thmenu
+	@rm -f $(OBJ_DIR)
 	@echo "Cleaned."
 
 $(BIN_DIR)/$(BIN_NAME): | $(BIN_DIR)

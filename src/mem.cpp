@@ -1,9 +1,9 @@
 #include "mem.hpp"
 #include "process.hpp"
 
-bool writeMem(HANDLE proc, DWORD pid, uintptr_t const addr, std::vector<uint8_t> const& bytes){
+bool writeMem(HANDLE proc, uintptr_t const addr, std::vector<uint8_t> const& bytes){
 	// Update uintptr with base, so we don't get E998.
-	uintptr_t base = getBase(pid);
+	uintptr_t base = getBase(getProc(_T("GeometryDash.exe")));
 	bool f = WriteProcessMemory(proc, reinterpret_cast<LPVOID>(base+addr), bytes.data(),
 					bytes.size(), nullptr);
 	if(!f) {
