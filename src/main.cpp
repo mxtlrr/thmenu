@@ -4,9 +4,7 @@
 #include "process.hpp"
 #include "mem.hpp"
 
-extern "C" {
-	#include <psapi.h>
-}
+#define ARR_LENGTH(x) (sizeof(x)/(sizeof(x[0])))
 
 int main(void){
 	std::cout << "[+] Looking for GeometryDash...";
@@ -19,4 +17,6 @@ int main(void){
 	}
 	uintptr_t guh = getBase(processId);
 	std::cout << "[+] Base located at 0x" << std::hex << guh << std::dec << std::endl;
+
+	return 0;
 }
