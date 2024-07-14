@@ -2,14 +2,28 @@
 Thmenu is a small external cheat menu for Geometry Dash.
 
 # Compilation
-Make sure you have some compiler `gcc`. Then you can just run `make`, and the
-executable will be in `bin/`
+You can use `w64devkit` to compile, just
+[download it here](https://github.com/skeeto/w64devkit) and you can just
+run `make`. Note that you will have to run `mkdir -pv obj/hack/ bin/`.
 
 # Roadmap 
 - [ ] Eventually some GUI
-- [ ] Inject into DLL / own DLL code
+- [ ] Tons of hacks
 
 ## Hacks to add
-- [ ] Noclip
+- [X] Noclip
 - [ ] Speedhack
 - [ ] Icon unlock
+- [ ] AC Bypass
+- [ ] Copy any online level
+- [ ] Verify hack
+
+# Usage
+| Command |    Action   |
+| ------- | ----------- |
+|    0    |Toggle noclip|
+|    1    |Toggle icon unlock |
+|    2    |Bypass anticheat |
+|    3    | Exit            |
+|    4    | Toggle copy hack|
+|    5    | Toggle verify hack|
