@@ -6,7 +6,7 @@ struct hack init_noclip(HANDLE hProc){
   // Generate a backup
   uint8_t buffer_cont[51];
 	std::vector<uint8_t> backup;
-	std::cout << "[...] Storing 0x3905f3 contents as backup...";
+	std::cout << "[...] Storing 0x3905f3 contents as backup...\n";
 	bool res = readMem(hProc, NOCLIP_LOCATION, buffer_cont, 51);
 	if(res){
 		for(int i = 0; i < 51; i++)
@@ -23,7 +23,7 @@ struct hack init_noclip(HANDLE hProc){
 void toggle_noclip(HANDLE proc, struct hack ctx){
   if(ctx.index != 0) return; // What the fuck are you doing?
 
-  switch(ctx.enabled){
+  switch(hacks[ctx.index]){
     case true:
       writeMem(proc, ctx.address, ctx.replace_by);
       set_status(ctx.index, false);

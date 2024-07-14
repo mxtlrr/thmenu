@@ -23,17 +23,25 @@ int main(void){
 	uintptr_t guh = getBase(processId);
 	std::cout << "[+] Base located at 0x" << std::hex << guh << std::dec << std::endl;
 
-	std::string b;
-
+	int b; bool running = true;
 	struct hack nc = init_noclip(hProc);
 
-	std::cout << "Type anything to turn on noclip!";
-	std::cin >> b;
+	while(running){
+		printf("> ");
+		std::cin >> b;
 
-	toggle_noclip(hProc, nc);
+		switch(b){
+			case 0: // toggle noclip.
+				printf("Toggling noclip...");
+				toggle_noclip(hProc, nc);
+				printf("%s\n", get_status_of_hack(0) ? "On!" : "Off.");
+				break;
 
-	std::cout << "Type anything to turn off noclip!";
-	std::cin >> b;
+			case 3:
+				running = false;
+				break;
+		}
+	}
 
 	CloseHandle(hProc);
 	return 0;
