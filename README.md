@@ -1,7 +1,5 @@
 # thmenu
-Thmenu is a small external cheat menu for Geometry Dash. It supports both:
-- Windows
-- Linux
+Thmenu is a small external cheat menu for Geometry Dash.
 
 # Compilation
 Make sure you have some compiler `gcc`. Then you can just run `make`, and the
