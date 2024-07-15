@@ -7,11 +7,12 @@ You can use `w64devkit` to compile, just
 run `make`. Note that you will have to run `mkdir -pv obj/hack/ bin/`.
 
 # Roadmap 
-- [ ] Eventually some GUI
+- [X] Global keybindings
 - [ ] Tons of hacks
 
 ## Hacks to add
 - [X] Noclip
+- [X] X-position freezing ([#2](https://github.com/mxtlrr/thmenu/issues/2))
 - [ ] Speedhack
 - [ ] Icon unlock
 - [ ] AC Bypass
@@ -19,11 +20,5 @@ run `make`. Note that you will have to run `mkdir -pv obj/hack/ bin/`.
 - [ ] Verify hack
 
 # Usage
-| Command |    Action   |
-| ------- | ----------- |
-|    0    |Toggle noclip|
-|    1    |Toggle icon unlock |
-|    2    |Bypass anticheat |
-|    3    | Exit            |
-|    4    | Toggle copy hack|
-|    5    | Toggle verify hack|
+See [CONFIG.md](./CONFIG.md) for configuration. To toggle,
+just press the key you configured.
