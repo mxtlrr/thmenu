@@ -29,7 +29,7 @@ $(BIN_DIR):
 .PHONY: clean
 clean:
 	@echo "Cleaning up..."
-	@rm -f $(OBJ_DIR)
+	@rm -f obj/* obj/hacks/* obj/cfg/*
 	@echo "Cleaned."
 
 $(BIN_DIR)/$(BIN_NAME): | $(BIN_DIR)
