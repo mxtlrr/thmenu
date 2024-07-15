@@ -9,9 +9,14 @@
 #include "hacks/noclip.hpp"
 #include "hacks/xpos.hpp"
 
+#include "cfg/readcfg.hpp"
+
 #define ARR_LENGTH(x) (sizeof(x)/(sizeof(x[0])))
 
 int main(void){
+	std::cout << "[...] Reading config file" << std::endl;
+	std::vector<uint32_t> keys = retrieve_keys("keys.cfg");
+
 	std::cout << "[+] Looking for GeometryDash...";
 	DWORD processId = getProc(_T("GeometryDash.exe"));
 	HANDLE hProc = OpenProcess(PROCESS_VM_READ | PROCESS_VM_WRITE | PROCESS_VM_OPERATION, FALSE, processId);

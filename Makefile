@@ -20,7 +20,7 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp | $(OBJ_DIR)
 	@$(CXX) $(CXXFLAGS) -c $< -o $@
 
 $(OBJ_DIR):
-	@mkdir -p obj/ obj/hacks
+	@mkdir -p obj/ obj/hacks obj/cfg
 
 $(BIN_DIR):
 	@mkdir -p $(BIN_DIR)
