@@ -24,7 +24,7 @@ struct hack {
 // A list of if each hack is toggled or not. This is probably a really
 // bad way to do this. Order:
 // 0th - Noclip.
-extern bool hacks[1];
+extern bool hacks[];
 
 // Toggle a hack
 struct hack toggle_hack(struct hack h);

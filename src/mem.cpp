@@ -18,3 +18,31 @@ bool readMem(HANDLE proc, uintptr_t address, void* buffer, SIZE_T size) {
 	uintptr_t base = (getBase(getProc(_T("GeometryDash.exe"))));
 	return ReadProcessMemory(proc, (LPCVOID)(base+address), buffer, size, &bytesRead) && bytesRead == size;
 }
+
+uintptr_t resolvePtrChain(HANDLE hProc, uintptr_t starting, std::vector<DWORD> offsets){
+	uintptr_t res = starting;
+	for(int i =0; i < offsets.size()-1;i++){
+		bool r = ReadProcessMemory(hProc, (LPCVOID)(res+offsets[i]), &res,
+									sizeof(res), NULL);
+		if(!r){
+			printf("[!!] Failed! Index %d. Error is %d\n", i, GetLastError());
+			return 0;
+		} else {
+			std::cout << "[internal] Reading from 0x" << std::hex << (res + offsets[i])
+					<<" | Got: 0x" << res << std::dec << std::endl;
+		}
+	}
+
+	res += offsets.back();
+	return res;
+}
+
+bool readFloat(HANDLE hProc, DWORD_PTR addr, float& val) {
+	return ReadProcessMemory(hProc, reinterpret_cast<LPCVOID>(addr),
+									&val, sizeof(val), nullptr);
+}
+
+bool writeFloat(HANDLE hProc, DWORD_PTR addr, float val) {
+	return WriteProcessMemory(hProc, reinterpret_cast<LPVOID>(addr),
+									&val, sizeof(val), nullptr);
+}

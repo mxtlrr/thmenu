@@ -1,7 +1,8 @@
 #include "hack.hpp"
 
 bool hacks[] = {
-  false       // Noclip
+  false,       // Noclip
+  false        // X-Position bypass
 };
 
 bool get_status_of_hack(int index){
