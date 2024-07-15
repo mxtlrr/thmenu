@@ -10,12 +10,22 @@
 #include "hacks/xpos.hpp"
 
 #include "cfg/readcfg.hpp"
+#include "cfg/register_keys.hpp"
 
 #define ARR_LENGTH(x) (sizeof(x)/(sizeof(x[0])))
 
 int main(void){
 	std::cout << "[...] Reading config file" << std::endl;
 	std::vector<uint32_t> keys = retrieve_keys("keys.cfg");
+
+	// Now we can register those keybindings and then do something for it
+	bool r = registerAllKeys(keys);
+	if(r){
+		std::cout << "[:)] All keys registered.\n";
+	}
+
+	// Internally, we also want to register 'Q', for cleaning everything up.
+	RegisterHotKey(NULL, 26, MOD_NOREPEAT, 0x51);
 
 	std::cout << "[+] Looking for GeometryDash...";
 	DWORD processId = getProc(_T("GeometryDash.exe"));
@@ -24,6 +34,7 @@ int main(void){
 		std::cout << "found! PID=" << processId << std::endl;
 	} else {
 		std::cout << "not running...\n";
+		deregister_keys();
 		return 1;
 	}
 	uintptr_t guh = getBase(processId);
@@ -33,30 +44,34 @@ int main(void){
 	struct hack nc = init_noclip(hProc);
 
 	struct xpos_hack xa = init_xposhack(hProc, guh);
-	float z = getVal(hProc, xa);
-	if(z != -1.0f) printf("X pos = %.3f\n", z);
+
+	MSG m;
 	while(running){
-		printf("> ");
-		std::cin >> b;
+		BOOL msg_recv = GetMessage(&m, NULL, 0, 0);
+		if(msg_recv != 0){
+			if(m.message == WM_HOTKEY){
+				DWORD parameter = m.wParam;
+				switch(parameter){
+					case 100: // Noclip
+						toggle_noclip(hProc, nc);
+						printf("Noclip is now %s\n", get_status_of_hack(0) ? "on." : "off.");
+						break;
 
-		switch(b){
-			case 0: // toggle noclip.
-				printf("Toggling noclip...");
-				toggle_noclip(hProc, nc);
-				printf("%s\n", get_status_of_hack(0) ? "On!" : "Off.");
-				break;
+					case 200:
+						// TODO: #2
+						toggle_xpos_freeze(hProc, xa);
+						break;
 
-			case 1: // x-pos freeze hack
-				printf("Toggling experimental X Pos freeze hack.\n");
-				toggle_xpos_freeze(hProc, xa);
-				break;
-
-			case 3:
-				running = false;
-				break;
+					case 26:
+						running = false;
+						break;
+				}
+			}
 		}
 	}
 
+	// Clean up
+	deregister_keys();
 	CloseHandle(hProc);
 	return 0;
 }
