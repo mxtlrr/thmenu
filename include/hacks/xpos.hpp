@@ -18,7 +18,7 @@ struct xpos_hack {
 };
 
 struct xpos_hack init_xposhack(HANDLE hProc, uintptr_t base);
-void toggle_hack(HANDLE proc, struct xpos_hack x);
+void toggle_xpos_freeze(HANDLE proc, struct xpos_hack x);
 
 /* TODO: function to freeze xposition of player, should be in its own
  * thread. */

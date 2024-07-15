@@ -41,10 +41,9 @@ int main(void){
 				printf("%s\n", get_status_of_hack(0) ? "On!" : "Off.");
 				break;
 
-			case 1:		// set xpos to 0 (reset level)
-				printf("Prev. => %.3f\n", getVal(hProc, xa));
-				writeVal(hProc, xa, 0.0f);
-				printf("New.  => %.3f\n", getVal(hProc, xa));
+			case 1: // x-pos freeze hack
+				printf("Toggling experimental X Pos freeze hack.\n");
+				toggle_xpos_freeze(hProc, xa);
 				break;
 
 			case 3:
