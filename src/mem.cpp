@@ -25,11 +25,10 @@ uintptr_t resolvePtrChain(HANDLE hProc, uintptr_t starting, std::vector<DWORD> o
 		bool r = ReadProcessMemory(hProc, (LPCVOID)(res+offsets[i]), &res,
 									sizeof(res), NULL);
 		if(!r){
-			printf("[!!] Failed! Index %d. Error is %d\n", i, GetLastError());
 			return 0;
 		} else {
-			std::cout << "[internal] Reading from 0x" << std::hex << (res + offsets[i])
-					<<" | Got: 0x" << res << std::dec << std::endl;
+			// std::cout << "[internal] Reading from 0x" << std::hex << (res + offsets[i])
+			// 		<<" | Got: 0x" << res << std::dec << std::endl;
 		}
 	}
 

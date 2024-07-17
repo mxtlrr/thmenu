@@ -40,14 +40,25 @@ int main(void){
 	uintptr_t guh = getBase(processId);
 	std::cout << "[+] Base located at 0x" << std::hex << guh << std::dec << std::endl;
 
-	int b; bool running = true;
+	bool running = true;
 	struct hack nc = init_noclip(hProc);
 
-	struct xpos_hack xa = init_xposhack(hProc, guh);
+	struct xpos_hack xa;
 
+	bool ingame = false;
 	MSG m;
 	while(running){
-		BOOL msg_recv = GetMessage(&m, NULL, 0, 0);
+		// Check if we're in the game.
+		xa = init_xposhack(hProc, guh);
+		if(xa.resolvedAddress == 0){
+			// We couldn't read the address, not in game.
+			std::cout << "[debug] Not in game...\n";
+			ingame = false; // ...: Just in case
+		} else {
+			ingame = true;
+		}
+
+		BOOL msg_recv = PeekMessage(&m, NULL, 0, 0, PM_REMOVE);
 		if(msg_recv != 0){
 			if(m.message == WM_HOTKEY){
 				DWORD parameter = m.wParam;
@@ -58,18 +69,29 @@ int main(void){
 						break;
 
 					case 200:
-						// TODO: #2
-						toggle_xpos_freeze(hProc, xa);
+						// Only toggle if we're in the game.
+						if(ingame == true){
+							toggle_xpos_freeze(hProc, xa);
+						}
 						break;
 
 					case 26:
-						running = false;
+						// Don't cause some funky error, toggle off.
+						if(get_status_of_hack(1) == true){
+							toggle_xpos_freeze(hProc, xa);
+							running = false;
+							break;
+						} else {
+							running = false;
+							break;
+						}
 						break;
 				}
 			}
 		}
 	}
 
+	std::cout << "Bye!" << std::endl;
 	// Clean up
 	deregister_keys();
 	CloseHandle(hProc);
