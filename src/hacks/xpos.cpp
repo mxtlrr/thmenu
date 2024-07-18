@@ -20,9 +20,9 @@ void xpos_stop(HANDLE hProc, struct xpos_hack x){
 struct xpos_hack init_xposhack(HANDLE hProc, uintptr_t base){
   struct xpos_hack x; x.enabled = false; x.index = 1;
   // Resolve the pointer chain
-  std::vector<DWORD> offsets{0x208, 0xd98, 0xc10, 0xd8, 0xd8, 0xa90};
+  std::vector<DWORD> offsets = playerdata_offsets[0];
   uintptr_t baseAddr = 0;
-  bool r = ReadProcessMemory(hProc, (LPVOID)(base+PLAYERPOS_X),
+  bool r = ReadProcessMemory(hProc, (LPVOID)(base+PLAYERPTR),
                               &baseAddr, sizeof(baseAddr), NULL);
   if(!r){
     x.resolvedAddress = 0x00;
