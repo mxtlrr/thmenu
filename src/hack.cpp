@@ -2,7 +2,8 @@
 
 bool hacks[] = {
   false,       // Noclip
-  false        // X-Position bypass
+  false,       // X-Position bypass
+  false        // No-Rotate
 };
 
 bool get_status_of_hack(int index){

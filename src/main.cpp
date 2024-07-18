@@ -8,6 +8,7 @@
 #include "hack.hpp"
 #include "hacks/noclip.hpp"
 #include "hacks/xpos.hpp"
+#include "hacks/no-rotate.hpp"
 
 #include "cfg/readcfg.hpp"
 #include "cfg/register_keys.hpp"
@@ -72,6 +73,12 @@ int main(void){
 						// Only toggle if we're in the game.
 						if(ingame == true){
 							toggle_xpos_freeze(hProc, xa);
+						}
+						break;
+
+					case 300:
+						if(ingame == true){
+							toggle_no_rotate(hProc);
 						}
 						break;
 
