@@ -9,6 +9,7 @@
 #include "hacks/noclip.hpp"
 #include "hacks/xpos.hpp"
 #include "hacks/no-rotate.hpp"
+#include "hacks/insta-complete.hpp"
 
 #include "cfg/readcfg.hpp"
 #include "cfg/register_keys.hpp"
@@ -79,6 +80,13 @@ int main(void){
 					case 300:
 						if(ingame == true){
 							toggle_no_rotate(hProc);
+						}
+						break;
+
+					case 400:
+						if(ingame == true){
+							insta_complete(hProc);							
+							printf("Insta hack done! Enjoy:)\n");
 						}
 						break;
 
