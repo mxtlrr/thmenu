@@ -28,7 +28,9 @@ You can see what the hex codes are at
 | ----  | -------------- | ------------ | 
 |`0x41` | The A key      | Noclip       |
 |`0x46` | The F key      | X-Pos Freeze |
+|`0x4e` | The N key      | No rotation  |
+| `0x43`| The C key      |Insta complete|
 
 ```c
-0x41,0x46
+0x41,0x46,0x4e,0x43
 ```
