@@ -15,6 +15,8 @@
 #include "cfg/readcfg.hpp"
 #include "cfg/register_keys.hpp"
 
+#define VERSION "0.1"
+
 void quit(HANDLE hProc){
 	deregister_keys();
 	CloseHandle(hProc);
@@ -43,9 +45,12 @@ int main(void){
 	std::cout << "[+] Base located at 0x" << std::hex << base << std::dec << std::endl;
 
 	bool running = true; bool ingame = true;
-	struct hack nc = init_noclip(hProc);
+	struct hack_noffset nc = init_noclip(hProc);
 
-	struct xpos_hack xa;
+	printf("[---] Welcome to THMenu v%s! Use your keybindings to toggle/enable hacks.\n",
+					VERSION);
+
+	struct hack_offset xa; // X-Pos offset
 	MSG m;
 	while(running){
 		// Check if we're in the game.

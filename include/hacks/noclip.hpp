@@ -10,5 +10,5 @@
 #include "hack.hpp"
 #include "offsets.hpp"
 
-struct hack init_noclip(HANDLE hProc);
-void toggle_noclip(HANDLE proc, struct hack ctx);
+struct hack_noffset init_noclip(HANDLE hProc);
+void toggle_noclip(HANDLE proc, struct hack_noffset ctx);

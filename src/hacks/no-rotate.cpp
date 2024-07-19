@@ -29,7 +29,7 @@ void toggle_no_rotate(HANDLE hProc){
       if(gc_thread_nr.joinable()){
         stop_thread_nr.store(true);
         gc_thread_nr.join();
-        printf("thread stopped\n");
+        printf("Stopped No-rotate.\n");  
       }
       set_status(2,false);
       break;
@@ -38,7 +38,7 @@ void toggle_no_rotate(HANDLE hProc){
       if(!gc_thread_nr.joinable()){
         stop_thread_nr.store(false);
         gc_thread_nr = std::thread(nr_stop, hProc);
-        printf("thread started\n");
+        printf("Started No-rotate.\n");
       }
       set_status(2,true);
       break;

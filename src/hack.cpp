@@ -14,9 +14,9 @@ void set_status(int index, bool new_val){
   hacks[index] = new_val;
 }
 
-struct hack toggle_hack(struct hack h){
+struct hack_noffset toggle_hack(struct hack_noffset h){
   // Might be a really stupid way of doing this.
-  struct hack new_h = h;
+  struct hack_noffset new_h = h;
   new_h.enabled = !h.enabled; // true => false, vice versa.
   return new_h;
 }
