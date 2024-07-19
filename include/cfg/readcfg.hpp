@@ -1,5 +1,11 @@
 #pragma once
 
+#define QUIT     26
+#define NOCLIP  100
+#define XPOS_FR 200
+#define NO_ROTA 300
+#define INSTACM 400
+
 #include <iostream>
 #include <fstream>
 #include <vector>
