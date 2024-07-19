@@ -4,6 +4,7 @@
 #include "process.hpp"
 #include "offsets.hpp"
 #include "mem.hpp"
+#include "anticheat.hpp"
 
 #include "hack.hpp"
 #include "hacks/noclip.hpp"
@@ -52,13 +53,8 @@ int main(void){
 	while(running){
 		// Check if we're in the game.
 		xa = init_xposhack(hProc, guh);
-		if(xa.resolvedAddress == 0){
-			// We couldn't read the address, not in game.
-			std::cout << "[debug] Not in game...\n";
-			ingame = false; // ...: Just in case
-		} else {
-			ingame = true;
-		}
+		if(xa.resolvedAddress == 0) ingame = false; // ...: Just in case
+		else ingame = true;
 
 		BOOL msg_recv = PeekMessage(&m, NULL, 0, 0, PM_REMOVE);
 		if(msg_recv != 0){
@@ -84,10 +80,14 @@ int main(void){
 						break;
 
 					case 400:
-						if(ingame == true){
+						if(ingame == true && anticheat_on(hProc) == true){
 							insta_complete(hProc);							
-							printf("Insta hack done! Enjoy:)\n");
+						} else if(ingame == true && !(anticheat_on(hProc))){
+							set_anticheat(hProc);			// Set anticheat to be on.
+							insta_complete(hProc);		// Finish the level.
+							set_anticheat(hProc);			// Turn it back off again.
 						}
+						printf("[+] Enjoy:)\n");
 						break;
 
 					case 26:
