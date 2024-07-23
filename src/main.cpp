@@ -80,12 +80,15 @@ int main(void){
 					else if(ingame == true && !(anticheat_on(hProc))){
 						set_anticheat(hProc);			// Set anticheat to be on.
 						insta_complete(hProc);		// Finish the level.
-						set_anticheat(hProc);			// Turn it back off again.
 					}
 					printf("[+] Enjoy:)\n");
 					break;
 
 				case QUIT:
+					// Ideally, if we are exiting, then we want to
+					// restore the state of all hacks.
+					if(get_status_of_hack(0)) toggle_hack(nc);
+
 					// Don't cause some funky error, toggle off.
 					if(get_status_of_hack(1) == true){
 						toggle_xpos_freeze(hProc, xa);
